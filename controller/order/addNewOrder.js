@@ -13,7 +13,7 @@ const addNewOrder = asyncHandler(async (req, res) => {
 		const count = await Order.count();
 		const orderId = String(count).padStart(5, '0');
 
-		const order = new {
+		const order = await Order({
 			orderItems: req.body.orderItems,
 			user: req.user._id,
 			shippingAddress: req.body.shippingAddress,
@@ -23,7 +23,7 @@ const addNewOrder = asyncHandler(async (req, res) => {
 			shippingPrice: req.body.shippingPrice,
 			totalPrice: req.body.totalPrice,
 			orderId: orderId,
-		}();
+		});
 
 		orderItems.map(async item => {
 			try {
